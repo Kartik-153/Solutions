@@ -20,4 +20,33 @@ public:
         }
         return true;
     }
+
+    // Given the head of a LinkedList with a cycle, find the length of the cycle.
+    int hasCycle2(ListNode *head) {
+        ListNode* fast = head;
+        ListNode* slow = head;
+
+        while(fast != nullptr && fast->next != nullptr) {
+            fast = fast->next->next;
+            slow = slow->next;
+
+            if(fast == slow) {
+                return calculateCycleLength(slow);
+            }
+        }
+    }
+
+private:
+    int calculateCycleLength(ListNode* slow) {
+        ListNode* curr = slow;
+        int len = 0;
+
+        while(true) {
+            curr = curr->next;
+            len+=1;
+            if(curr==slow) 
+                break;
+        }
+        return len;
+    }
 };
