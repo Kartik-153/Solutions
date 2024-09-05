@@ -1,43 +1,59 @@
-/**
-*  जय सिया राम
-*/
- 
 #include <bits/stdc++.h>
-using namespace std;
-  
-#define int           long long int
-#define endl          "\n" 
-#define pb            push_back
-#define F             first
-#define S             second
-#define rep(i,a,n)    for(int i = a; i < n; i++)
-#define all(p)        p.begin(), p.end()
-#define double        long double
-#define que_max       priority_queue <int>
-#define print(a)      for(auto x : a) cout << x << " "; cout << endl;
-#define print1(a)     for(auto x : a) cout << x.F << " " << x.S << endl;
-#define mod           1000000007
- 
-void solve() {
-    int n;
-    string s;
-    cin >> n;
-    vector<int> p(n);
-    rep(i,0,n) {
-        cin >> p[i];
-    }
-    
+#include <cmath>
 
-}
- 
-int32_t main() {
-    ios::sync_with_stdio(0);
-    cin.tie(0);
-    
-    int t;
-    cin >> t;
-        while(t--) {
-           solve();
+using namespace std;
+int main() {
+    int t, n, i, j, r, count, tb, no;
+    cin>>t;
+    while(t--)
+    {
+        cin>>n;
+        string s;
+        cin>>s;
+        r = static_cast<int>(sqrt(n));
+       // cout<<r<<endl;
+       count=0, no=0, tb=0;
+        if(r*r!=n)
+            cout<<"No"<<endl;
+        else
+        {
+            for(i=0; i<n; i++)
+            {
+                if(i<r || i>= r*(r-1))
+                {
+                    if(s[i]!='1')
+                    {
+                        no++;
+                        break;
+                    }
+                }
+                else
+                {
+                    if(i%r==0 || i%r==r-1)
+                    {
+                        if(s[i]!='1')
+                        {
+                            no++;
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        if(s[i]!='0')
+                        {
+                            no++;
+                            break;
+                        }
+                    }
+                }
+            }
+            if(no>0)
+                cout<<"No"<<endl;
+            else
+                cout<<"Yes"<<endl;
+            
+        }
     }
+
     return 0;
 }
