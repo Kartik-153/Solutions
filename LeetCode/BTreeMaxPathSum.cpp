@@ -66,8 +66,19 @@
 //       r=35
 //       check whether 9+35+-10=34 beats max_sum
 //       34<42 so nothing happens and we return -10+max(9,35)=25 to the caller after which we break out of the helper function and we get max_sum as 42.
-#include <bits/stdc++.g>
+#include <bits/stdc++.h>
 using namespace std;
+struct TreeNode
+{
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode() : val(0), left(nullptr), right(nullptr) {}
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left),
+                                                       right(right) {}
+};
+
 class Solution{
 public:
     int max_sum=INT_MIN;
