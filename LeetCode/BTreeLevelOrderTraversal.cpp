@@ -1,4 +1,4 @@
-#include <vector>
+#include<bits/stdc++.h>
 using namespace std;
 
 // Definition for a binary tree node.
@@ -41,5 +41,37 @@ public:
             ans.push_back(levelNodes);
         }
         return ans;
+    }
+};
+
+class Solution2{
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        vector<vector<int>> res;
+        if(root == nullptr) {
+            return res;
+        }
+        deque<TreeNode*> q;
+        q.push_back(root);
+        while(!q.empty()) {
+            int levelSize = q.size();
+            vector<int> currLevel;
+
+            for(int i = 0; i < levelSize; i++) {
+                TreeNode* currNode = q.front();
+                q.pop_front();
+                currLevel.push_back(currNode->val);
+
+                if(currNode->left != nullptr) {
+                    q.push_back(currNode->left);
+                }
+
+                if(currNode->right != nullptr) {
+                    q.push_back(currNode->right);
+                }
+            }
+            res.push_back(currLevel);
+        }
+        return res;
     }
 };
