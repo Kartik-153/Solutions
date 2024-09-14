@@ -1,1 +1,7 @@
-.vscode
+*/.ipynb_checkpoints/*
+**/__pycache__/*
+**/.DS_Store
+*.idea
+**/mlruns/*
+model_checkpoints/*
+.vscode/
