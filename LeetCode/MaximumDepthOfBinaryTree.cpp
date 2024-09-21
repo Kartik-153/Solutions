@@ -28,4 +28,27 @@ public:
             }
         }
     }
+
+    int MaxDepth(TreeNode* root) {
+        if(root == nullptr) 
+            return 0;
+        queue<TreeNode*> Q;
+        Q.push(root);
+        int maxDepth = 0;
+        while(!Q.empty()) {
+            maxDepth++;
+            int len = Q.size();
+
+            for(int i = 0; i < len; i++) {
+                TreeNode* currNode = Q.front();
+                Q.pop();
+
+                if(currNode->left != nullptr)
+                    Q.push(currNode->left);
+                if(currNode->right != nullptr) 
+                    Q.push(currNode->right);
+            }
+        }
+        return maxDepth;
+    }
 };
