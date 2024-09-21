@@ -23,7 +23,7 @@ public:
             int len = Q.size();
             for(int i = 0; i < len; i++) {
                 TreeNode* curr = Q.front();
-                if(i == len - 1) 
+                if(i == len - 1)             // If the code wants to make left then take condition as (i == 0)
                     res.push_back(curr->val);
                 if(curr->left != nullptr) 
                     Q.push(curr->left);
