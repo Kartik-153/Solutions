@@ -34,3 +34,25 @@ public:
         return result;
     }
 };
+
+class Solution_Recursive {
+public:
+    vector<vector<int>> permute(vector<int>& nums) {
+        vector<vector<int>> subsets;
+        vector<int> currentPermutation;
+        generatePermutationsRecursive(nums, 0, currentPermutation, subsets);
+    }
+private:
+    void generatePermutationsRecursive(vector<int>& nums, int index, vector<int>& currentPermutation, vector<vector<int>>& subsets) {
+        if(index == nums.size()) {
+            subsets.push_back(currentPermutation);
+        } else {
+            for(int i = 0; i <= currentPermutation.size(); i++) {
+                vector<int> newPermutation = currentPermutation;
+
+                newPermutation.insert(newPermutation.begin() + i, nums[index]);
+                generatePermutationsRecursive(nums, index + 1, newPermutation, subsets);
+            }
+        }
+    }
+};
