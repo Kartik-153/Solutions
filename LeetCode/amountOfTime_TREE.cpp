@@ -18,7 +18,7 @@ public:
         constructGraph(root);
         queue<int> q;
         q.push(start);
-        unordered_map<int> visited;
+        unordered_set<int> visited;
         int minutesPassed = -1;
         while(!q.empty()) {
             ++minutesPassed;

@@ -1,39 +1,29 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
- *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left),
- * right(right) {}
- * };
- */
-
-class Solution {
+class Solution
+{
 public:
-    int getMinimumDifference(TreeNode* root) {
-        vector<int> v;
-        toVector(root, v);
-        sort(v.begin(), v.end());
+    vector<vector<int>> minimumAbsDifference(vector<int> &arr)
+    {
+        vector<vector<int>> ans;
+        sort(arr.begin(), arr.end());
 
-        int min_diff = INT_MAX;
-        for (size_t i = 1; i < v.size(); ++i) {
-            min_diff = min(min_diff, v[i] - v[i - 1]);
+        int minDif = INT_MAX;
+        for (int i = 1; i < arr.size(); i++)
+        {
+            int d = arr[i] - arr[i - 1];
+            if (d < minDif)
+            {
+                ans.clear();
+                minDif = d;
+                ans.push_back({arr[i - 1], arr[i]});
+            }
+            else if (d == minDif)
+            {
+                ans.push_back({arr[i - 1], arr[i]});
+            }
         }
-        return min_diff;
-    }
-
-private:
-    void toVector(TreeNode* root, vector<int>& v) {
-        if (root) {
-            toVector(root->left, v);
-            v.push_back(root->val);
-            toVector(root->right, v);
-        }
+        return ans;
     }
 };
