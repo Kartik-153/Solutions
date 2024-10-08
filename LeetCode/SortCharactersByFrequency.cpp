@@ -23,3 +23,29 @@ public:
         return sortedString;
     }
 };
+
+class Solution2 {
+public:
+    string frequencySort(string s) {
+        map<char, int> count_map;
+        for (char st : s) {
+            count_map[st] += 1;
+        }
+        auto comp = [&count_map](const char a, const char b) {
+            return count_map[a] < count_map[b];
+        };
+        priority_queue<char, vector<char>, decltype(comp)> heap(comp);
+
+        for (auto p : count_map) {
+            heap.push(p.first);
+        }
+        string res = "";
+        while (!heap.empty()) {
+            char temp = heap.top();
+            heap.pop();
+            res.append(count_map[temp], temp);
+        }
+
+        return res;
+    }
+};
