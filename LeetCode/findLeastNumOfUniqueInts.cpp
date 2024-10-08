@@ -1,3 +1,6 @@
+#include<bits/stdc++.h>
+using namespace std;
+
 class Solution {
 public:
     int findLeastNumOfUniqueInts(vector<int>& arr, int k) {
@@ -21,6 +24,31 @@ public:
                 break;
             }
         }
-        return size(dp)-count;
+        return dp.size() - count;
+    }
+};
+
+class Solution2 {
+public:
+    int findLeastNumOfUniqueInts(vector<int>& arr, int k) {
+        unordered_map<int, int> freqMap;
+        for (int number : arr) {
+            freqMap[number]++;
+        }
+        vector<int> freq;
+        for(const auto& pair: freqMap) {
+            freq.push_back(pair.second);
+        }
+        sort(freq.begin(), freq.end());
+        int res = freq.size();
+        for(int n: freq) {
+            if(k>=n) {
+                k-=n;
+                res--;
+            } else {
+                return res;
+            }
+        }
+        return res;
     }
 };
