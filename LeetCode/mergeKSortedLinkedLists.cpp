@@ -45,3 +45,34 @@ public:
         return dummy->next;
     }
 };
+
+class Solution2 {
+public:
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
+        auto cmp = [](ListNode* a, ListNode* b) {
+            return a->val > b->val;
+        };
+
+        priority_queue<ListNode*, vector<ListNode*>, decltype(cmp)> min_heap(cmp);
+        for(auto list : lists) {
+            if(list) {
+                min_heap.push(list);
+            }
+        }
+        ListNode* dummyNode = new ListNode();
+        ListNode* current = dummyNode;
+
+        while(!min_heap.empty()) {
+            ListNode* node = min_heap.top();
+            min_heap.pop();
+
+            current->next = node;
+            current = current->next;
+
+            if(node->next) {
+                min_heap.push(node->next);
+            }
+        }
+        return dummyNode->next;
+    }
+};
