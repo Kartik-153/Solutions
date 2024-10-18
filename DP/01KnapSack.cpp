@@ -139,6 +139,34 @@ private:
         cout << "Selected weights: " << selectedWeights << " with Total knapsack profit of ---> $" << dp[weights.size() - 1][capacity] << endl;
     }
 
+    int KnapSackSpaceOptimization(vector<int> &profits, vector<int> &weights, int capacity)
+    {
+        int n = profits.size();
+
+        if (capacity <= 0 || n == 0 || weights.size() != n)
+            return 0;
+        vector<int> dp(capacity + 1, 0);
+        for (int c = 0; c <= capacity; c++)
+        {
+            if (weights[0] <= c)
+            {
+                dp[c] = profits[0];
+            }
+        }
+        for (int i = 1; i < n; i++)
+        {
+            for (int c = capacity; c >= 0; c--)
+            {
+                int profitWithI = 0;
+                if (weights[i] <= c)
+                {
+                    profitWithI = profits[i] + dp[c - weights[i]];
+                }
+            }
+        }
+        return dp[capacity];
+    }
+
     int knapSackBruteforce(vector<int> &profits, vector<int> &weights, int capacity, int currIndex)
     { // O(2^n) where n is the size of the weights or profits
         if (capacity <= 0 || currIndex >= profits.size())
