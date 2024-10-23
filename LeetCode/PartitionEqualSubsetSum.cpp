@@ -42,6 +42,32 @@ bool canPartition(vector<int>& nums) {
         return dp[subset_sum][nums.size()];
     }
 
+bool canPartition_bottomUp(vector<int>& nums) {
+    int n = nums.size();
+    int sum = 0;
+    for(int i : nums) {
+        sum += i;
+    }
+    if(sum&1)
+        return false;
+    int subsetSum = sum/2;
+    vector<vector<bool>> dp(n, vector<bool>(subsetSum+1, false));
+    for(int i = 0; i < n; i++)
+        dp[i][0] = true;
+    for(int s = 1; s <= subsetSum; s++) 
+        dp[0][s] = (nums[0] == s);
+    
+    for(int i = 1; i < n; i++) {
+        for(int s = 1; s <= subsetSum; s++) {
+            if(dp[i-1][s]) 
+                dp[i][s] = dp[i-1][s];
+            else if(s >= nums[i])
+                dp[i][s] = dp[i-1][s-nums[i]];
+        }
+    }
+    return dp[n-1][subsetSum];
+}
+
 private:
     bool canPartitionRecursive(vector<int>& num, int sum, int currIndex) {
         if(sum == 0) {
