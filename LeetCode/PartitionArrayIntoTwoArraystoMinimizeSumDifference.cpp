@@ -29,6 +29,7 @@ public:
         int s2 = sum - s1;
         return abs(s2-s1);
     }
+};
 
 class Solution2 {
 public:
@@ -76,5 +77,4 @@ public:
         return res;
         
     }
-};
 };
