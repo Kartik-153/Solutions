@@ -1,11 +1,11 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
 class Solution_wrong { // Wrong Answer
 public:
-const int MOD = 1e9 + 7;
+    const int MOD = 1e9 + 7;
     int subsequencePairCount(vector<int>& nums) {
-        
+
         int maxNum = *max_element(nums.begin(), nums.end());
         vector<int> freq(maxNum + 1, 0);
         for (int num : nums) {
@@ -18,11 +18,14 @@ const int MOD = 1e9 + 7;
                 subseqCount += freq[multiple];
             }
             if (subseqCount > 0) {
-                long long totalSubsequences = (modularExponentiation(2, subseqCount, MOD) - 1 + MOD) % MOD;
+                long long totalSubsequences =
+                    (modularExponentiation(2, subseqCount, MOD) - 1 + MOD) %
+                    MOD;
                 for (int multiple = 2 * g; multiple <= maxNum; multiple += g) {
-                    totalSubsequences = (totalSubsequences - gcdCount[multiple] + MOD) % MOD;
+                    totalSubsequences =
+                        (totalSubsequences - gcdCount[multiple] + MOD) % MOD;
                 }
-                
+
                 gcdCount[g] = totalSubsequences;
             }
         }
@@ -32,12 +35,11 @@ const int MOD = 1e9 + 7;
                 result = (result + gcdCount[g] * (gcdCount[g] - 1) / 2) % MOD;
             }
         }
-        
-        return result;
 
+        return result;
     }
 
-    private:
+private:
     long long modularExponentiation(long long base, long long exp, int mod) {
         long long result = 1;
         while (exp > 0) {
@@ -54,19 +56,21 @@ const int MOD = 1e9 + 7;
 class Solution {
     const int mod = 1e9 + 7;
     int dp[200][201][201];
+
 public:
     int solve(int i, vector<int>& nums, int first, int second) {
-        if(i == nums.size()) {
+        if (i == nums.size()) {
             return (first && second) && (first == second);
         }
 
-        if(dp[i][first][second] != -1) return dp[i][first][second];
+        if (dp[i][first][second] != -1)
+            return dp[i][first][second];
 
-        int skip = solve(i+1, nums, first, second);
+        int skip = solve(i + 1, nums, first, second);
 
-        int take1 = solve(i+1, nums, __gcd(first, nums[i]), second);
+        int take1 = solve(i + 1, nums, __gcd(first, nums[i]), second);
 
-        int take2 = solve(i+1, nums, first, __gcd(second, nums[i]));
+        int take2 = solve(i + 1, nums, first, __gcd(second, nums[i]));
 
         return dp[i][first][second] = (0LL + skip + take1 + take2) % mod;
     }
