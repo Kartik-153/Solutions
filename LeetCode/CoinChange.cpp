@@ -1,31 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-class Solution {
-public:
-    int coinChange(vector<int>& coins, int amount) {
-        return deno(coins, amount, 0);
-    }
-
-private:
-    int deno(vector<int>& coins, int amount, int currIndex) {
-        if(amount == 0)
-            return 0;
-        if(coins.size() == 0 || currIndex >= coins.size()) {
-            return -1;
-        }
-
-        int currSum = 0;
-        if(coins[currIndex] <= amount) {
-            currSum = deno(coins, amount - coins[currIndex], currIndex);
-        }
-
-        int currSumAtNextItem = deno(coins, amount, currIndex + 1);
-
-        return currSum + currSumAtNextItem;
-    }
-};
-
 class Solution2 {
 public:
     int findLowestCoins(vector<int>& coins, int cur, int amount) {
