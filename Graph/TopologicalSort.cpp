@@ -65,68 +65,6 @@ void printResult(vector<int> result)
     }
     cout << endl;
 }
-
-class Solution
-{
-public:
-    bool courses(int vertices, vector<vector<int>> &edges)
-    {
-        vector<int> sortedList;
-
-        if (vertices == 0)
-        {
-            return false;
-        }
-
-        vector<int> inDegree(vertices, 0);
-        vector<vector<int>> graph(vertices);
-
-        for (auto &edge : edges)
-        {
-            int source = edge[0], child = edge[1];
-            graph[source].push_back(child);
-            inDegree[child] += 1;
-        }
-
-        queue<int> sources;
-        for (int i = 0; i < vertices; i++)
-        {
-            if (inDegree[i] == 0)
-            {
-                sources.push(i);
-            }
-        }
-
-        while (!sources.empty())
-        {
-            int vertex = sources.front();
-            sources.pop();
-
-            sortedList.push_back(vertex);
-            for (auto &child : graph[vertex])
-            {
-                inDegree[child]--;
-                if (inDegree[child] == 0)
-                {
-                    sources.push(child);
-                }
-            }
-        }
-
-        return sortedList.size() == vertices;
-    }
-
-    vector<int> findOrder(int numCourses, vector<vector<int>> &prerequisites)
-    {
-        vector<int> ans = courses(numCourses, prerequisites);
-        if (ans.size() < numCourses)
-        {
-            return {};
-        }
-        return ans;
-    }
-};
-
 class Solution
 {
 public:
