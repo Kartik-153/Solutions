@@ -32,3 +32,29 @@ public:
 		return temp;
     }
 };
+
+class Solution { 
+public:
+    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+        ListNode* ans = new ListNode(-1);
+        ListNode* a = ans;
+        while (list1 != NULL && list2 != NULL) {
+            if (list1->val < list2->val) {
+                a->next = list1;
+                list1 = list1->next;
+            } else {
+                a->next = list2;
+                list2 = list2->next;
+            }
+            a = a->next;
+        }
+        if (list1 != NULL) {
+            a->next = list1;
+        }
+        if (list2 != NULL) {
+            a->next = list2;
+        }
+        ans = ans->next;
+        return ans;
+    }
+};
