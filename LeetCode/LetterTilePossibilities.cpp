@@ -27,6 +27,6 @@ private:
 
 int main() {
     Solution S;
-    cout << S.numTilePossibilities("90");
+    cout << S.numTilePossibilities("aseunrngnfiwfnewifweigibnwifnwi");
     return 0;
 }
