@@ -1,8 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-/*
-// Definition for a Node.
 class Node {
 public:
     int val;
@@ -20,7 +18,6 @@ public:
         neighbors = _neighbors;
     }
 };
-*/
 
 class Solution {
 public:
