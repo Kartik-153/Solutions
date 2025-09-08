@@ -1,12 +1,10 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-vector<int> topologicalSort(int vertices, vector<vector<int>> &edges)
-{ // Time = O(V+E)
+vector<int> topologicalSort(int vertices, vector<vector<int>> &edges) { // Time = O(V+E)
     vector<int> sortedOrder;
 
-    if (vertices <= 0)
-    {
+    if (vertices <= 0) {
         return sortedOrder;
     }
 
@@ -15,8 +13,7 @@ vector<int> topologicalSort(int vertices, vector<vector<int>> &edges)
     vector<vector<int>> graph(vertices); // adjacency list graph
 
     // 2. Build the graph
-    for (auto &edge : edges)
-    {
+    for (auto &edge : edges) {
         int parent = edge[0], child = edge[1];
         graph[parent].push_back(child); // put the child into its parent's list
         inDegree[child]++;              // increment child's inDegree
@@ -24,95 +21,78 @@ vector<int> topologicalSort(int vertices, vector<vector<int>> &edges)
 
     // 3. Find all sources (vertices with 0 in-degree)
     queue<int> sources;
-    for (int i = 0; i < vertices; i++)
-    {
-        if (inDegree[i] == 0)
-        {
+    for (int i = 0; i < vertices; i++) {
+        if (inDegree[i] == 0) {
             sources.push(i);
         }
     }
 
     // 4. For each source, add it to sortedOrder and decrement its children's in-degrees
-    while (!sources.empty())
-    {
+    while (!sources.empty()) {
         int vertex = sources.front();
         sources.pop();
         sortedOrder.push_back(vertex);
-        for (auto &child : graph[vertex])
-        {
+        for (auto &child : graph[vertex]) {
             inDegree[child]--;
-            if (inDegree[child] == 0)
-            {
+            if (inDegree[child] == 0) {
                 sources.push(child);
             }
         }
     }
 
     // Topological sort is not possible if the graph has a cycle
-    if (sortedOrder.size() != vertices)
-    {
+    if (sortedOrder.size() != vertices) {
         return {};
     }
 
     return sortedOrder;
 }
 
-void printResult(vector<int> result)
-{
-    for (int i : result)
-    {
+void printResult(vector<int> result) {
+    for (int i : result) {
         cout << i << " ";
     }
     cout << endl;
 }
-class Solution
-{
+
+class Solution {
 public:
-    vector<int> khan(int k, vector<vector<int>> &prerequisites)
-    {
+    vector<int> khan(int k, vector<vector<int>> &prerequisites) {
         vector<int> graph[k];
         vector<int> degree(k);
-        for (auto i : prerequisites)
-        {
+        for (auto i : prerequisites) {
             graph[i[1]].push_back(i[0]);
             degree[i[0]]++;
         }
         queue<int> q;
-        for (int i = 0; i < k; i++)
-        {
+        for (int i = 0; i < k; i++) {
             if (degree[i] == 0)
                 q.push(i);
         }
         vector<int> ans;
-        while (!q.empty())
-        {
+        while (!q.empty()) {
             int i = q.front();
             q.pop();
             ans.push_back(i);
-            for (auto it : graph[i])
-            {
+            for (auto it : graph[i]) {
                 degree[it]--;
-                if (degree[it] == 0)
-                {
+                if (degree[it] == 0) {
                     q.push(it);
                 }
             }
         }
         return ans;
     }
-    vector<int> findOrder(int numCourses, vector<vector<int>> &prerequisites)
-    {
+    vector<int> findOrder(int numCourses, vector<vector<int>> &prerequisites) {
         vector<int> ans = khan(numCourses, prerequisites);
-        if (ans.size() < numCourses)
-        {
+        if (ans.size() < numCourses) {
             return {};
         }
         return ans;
     }
 };
 
-int main()
-{
+int main() {
     vector<vector<int>> edges1 = {{3, 2}, {3, 0}, {2, 0}, {2, 1}};
     cout << "Topological sort: ";
     printResult(topologicalSort(4, edges1));
